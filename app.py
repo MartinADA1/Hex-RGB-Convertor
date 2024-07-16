@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify
 import colorsys
 
-# quick test
-
 app = Flask(__name__)
 
 def hex_to_rgb(hex):
@@ -13,7 +11,7 @@ def rgb_to_hex(r, g, b):
     return f'#{r:02x}{g:02x}{b:02x}'
 
 def rgba_to_hex(r, g, b, a):
-    return f'#{r:02x}{g:02x}{b:02x}{int(a * 255):02x}'
+    return f'#{r:02x}{g:02x}{b:02x}{round(a * 255):02x}'
 
 def hex_to_rgba(hex):
     hex = hex.lstrip('#')
