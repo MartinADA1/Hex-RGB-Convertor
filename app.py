@@ -17,14 +17,17 @@ def rgb_to_hex(red, green, blue):
 
 # Function to convert RGBA to hex
 def rgba_to_hex(red, green, blue, alpha):
-    return f'#{red:02x}{green:02x}{blue:02x}{round(alpha * 255):02x}'
+    return (
+        f'#{red:02x}{green:02x}{blue:02x}{round(alpha * 255):02x}'
+    )
 
 
 # Function to convert hex to RGBA
 def hex_to_rgba(hex):
     hex = hex.lstrip('#')
-    return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4, 6)) if len(hex) == 8 else (
-        *hex_to_rgb(hex), 255
+    return (
+        tuple(int(hex[i:i+2], 16) for i in (0, 2, 4, 6))
+        if len(hex) == 8 else (*hex_to_rgb(hex), 255)
     )
 
 
