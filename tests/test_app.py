@@ -7,7 +7,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from app import (
     hex_to_rgb, rgb_to_hex, rgba_to_hex, hex_to_rgba, rgb_to_hsl,
-    hsl_to_rgb, rgb_to_rgba, rgba_to_rgb, hsl_to_hex, hsl_to_rgba
+    hsl_to_rgb, rgb_to_rgba, rgba_to_rgb, hsl_to_hex, hsl_to_rgba,
+    rgba_to_hsl, hex_to_hsl
 )
 
 def test_hex_to_rgb():
@@ -25,6 +26,7 @@ def test_rgba_to_hex():
 def test_hex_to_rgba():
     assert hex_to_rgba('#ffffffff') == (255, 255, 255, 255)
     assert hex_to_rgba('#00000000') == (0, 0, 0, 0)
+    assert hex_to_rgba('#ff0000') == (255, 0, 0, 255)  # Ensure it handles hex without alpha
 
 def test_rgb_to_hsl():
     assert rgb_to_hsl(255, 0, 0) == (0, 100, 50)
@@ -49,3 +51,11 @@ def test_hsl_to_hex():
 def test_hsl_to_rgba():
     assert hsl_to_rgba(0, 100, 50, 1) == '#ff0000ff'
     assert hsl_to_rgba(120, 100, 50, 0.5) == '#00ff0080'
+
+def test_hex_to_hsl():
+    assert hex_to_hsl('#ff0000') == (0, 100, 50)
+    assert hex_to_hsl('#00ff00') == (120, 100, 50)
+
+def test_rgba_to_hsl():
+    assert rgba_to_hsl(255, 0, 0, 255) == (0, 100, 50, 255)
+    assert rgba_to_hsl(0, 255, 0, 128) == (120, 100, 50, 128)
