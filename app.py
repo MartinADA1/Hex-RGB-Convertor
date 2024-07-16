@@ -9,12 +9,12 @@ def hex_to_rgb(hex):
     return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
 
 
-def rgb_to_hex(r, g, b):
-    return f'#{r:02x}{g:02x}{b:02x}'
+def rgb_to_hex(red, green, blue):
+    return f'#{red:02x}{green:02x}{blue:02x}'
 
 
-def rgba_to_hex(r, g, b, a):
-    return f'#{r:02x}{g:02x}{b:02x}{round(a * 255):02x}'
+def rgba_to_hex(red, green, blue, alpha):
+    return f'#{red:02x}{green:02x}{blue:02x}{round(alpha * 255):02x}'
 
 
 def hex_to_rgba(hex):
@@ -22,34 +22,34 @@ def hex_to_rgba(hex):
     return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4, 6))
 
 
-def rgb_to_hsl(r, g, b):
-    r, g, b = r / 255.0, g / 255.0, b / 255.0
-    h, l, s = colorsys.rgb_to_hls(r, g, b)
-    return int(h * 360), int(s * 100), int(l * 100)
+def rgb_to_hsl(red, green, blue):
+    red, green, blue = red / 255.0, green / 255.0, blue / 255.0
+    hue, lightness, saturation = colorsys.rgb_to_hls(red, green, blue)
+    return int(hue * 360), int(saturation * 100), int(lightness * 100)
 
 
-def hsl_to_rgb(h, s, l):
-    h, s, l = h / 360.0, s / 100.0, l / 100.0
-    r, g, b = colorsys.hls_to_rgb(h, l, s)
-    return int(r * 255), int(g * 255), int(b * 255)
+def hsl_to_rgb(hue, saturation, lightness):
+    hue, saturation, lightness = hue / 360.0, saturation / 100.0, lightness / 100.0
+    red, green, blue = colorsys.hls_to_rgb(hue, lightness, saturation)
+    return int(red * 255), int(green * 255), int(blue * 255)
 
 
-def rgb_to_rgba(r, g, b, a=1.0):
-    return (r, g, b, round(a * 255))
+def rgb_to_rgba(red, green, blue, alpha=1.0):
+    return (red, green, blue, round(alpha * 255))
 
 
-def rgba_to_rgb(r, g, b, a):
-    return (r, g, b)
+def rgba_to_rgb(red, green, blue, alpha):
+    return (red, green, blue)
 
 
-def hsl_to_hex(h, s, l):
-    r, g, b = hsl_to_rgb(h, s, l)
-    return rgb_to_hex(r, g, b)
+def hsl_to_hex(hue, saturation, lightness):
+    red, green, blue = hsl_to_rgb(hue, saturation, lightness)
+    return rgb_to_hex(red, green, blue)
 
 
-def hsl_to_rgba(h, s, l, a=1.0):
-    r, g, b = hsl_to_rgb(h, s, l)
-    return rgba_to_hex(r, g, b, a)
+def hsl_to_rgba(hue, saturation, lightness, alpha=1.0):
+    red, green, blue = hsl_to_rgb(hue, saturation, lightness)
+    return rgba_to_hex(red, green, blue, alpha)
 
 
 @app.route('/convert', methods=['GET'])
@@ -62,39 +62,39 @@ def convert():
             rgb = hex_to_rgb(input_value)
             return jsonify({'rgb': rgb})
         elif conversion_type == 'rgb_to_hex':
-            r, g, b = map(int, input_value.split(','))
-            hex_value = rgb_to_hex(r, g, b)
+            red, green, blue = map(int, input_value.split(','))
+            hex_value = rgb_to_hex(red, green, blue)
             return jsonify({'hex': hex_value})
         elif conversion_type == 'hex_to_rgba':
             rgba = hex_to_rgba(input_value)
             return jsonify({'rgba': rgba})
         elif conversion_type == 'rgba_to_hex':
-            r, g, b, a = map(float, input_value.split(','))
-            hex_value = rgba_to_hex(r, g, b, a)
+            red, green, blue, alpha = map(float, input_value.split(','))
+            hex_value = rgba_to_hex(red, green, blue, alpha)
             return jsonify({'hex': hex_value})
         elif conversion_type == 'rgb_to_hsl':
-            r, g, b = map(int, input_value.split(','))
-            hsl = rgb_to_hsl(r, g, b)
+            red, green, blue = map(int, input_value.split(','))
+            hsl = rgb_to_hsl(red, green, blue)
             return jsonify({'hsl': hsl})
         elif conversion_type == 'hsl_to_rgb':
-            h, s, l = map(int, input_value.split(','))
-            rgb = hsl_to_rgb(h, s, l)
+            hue, saturation, lightness = map(int, input_value.split(','))
+            rgb = hsl_to_rgb(hue, saturation, lightness)
             return jsonify({'rgb': rgb})
         elif conversion_type == 'rgba_to_rgb':
-            r, g, b, a = map(int, input_value.split(','))
-            rgb = rgba_to_rgb(r, g, b, a)
+            red, green, blue, alpha = map(int, input_value.split(','))
+            rgb = rgba_to_rgb(red, green, blue, alpha)
             return jsonify({'rgb': rgb})
         elif conversion_type == 'rgb_to_rgba':
-            r, g, b = map(int, input_value.split(','))
-            rgba = rgb_to_rgba(r, g, b)
+            red, green, blue = map(int, input_value.split(','))
+            rgba = rgb_to_rgba(red, green, blue)
             return jsonify({'rgba': rgba})
         elif conversion_type == 'hsl_to_hex':
-            h, s, l = map(int, input_value.split(','))
-            hex_value = hsl_to_hex(h, s, l)
+            hue, saturation, lightness = map(int, input_value.split(','))
+            hex_value = hsl_to_hex(hue, saturation, lightness)
             return jsonify({'hex': hex_value})
         elif conversion_type == 'hsl_to_rgba':
-            h, s, l = map(int, input_value.split(','))
-            rgba = hsl_to_rgba(h, s, l)
+            hue, saturation, lightness = map(int, input_value.split(','))
+            rgba = hsl_to_rgba(hue, saturation, lightness)
             return jsonify({'rgba': rgba})
         else:
             return jsonify({'error': 'Invalid conversion type'}), 400
