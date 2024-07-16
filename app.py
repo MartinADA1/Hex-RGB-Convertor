@@ -132,7 +132,8 @@ def convert():
             hex_value = hsl_to_hex(hue, saturation, lightness)
             return jsonify({'hex': hex_value})
         elif conversion_type == 'hsl_to_rgba':
-            hue, saturation, lightness, alpha = map(float, input_value.split(','))
+            values = input_value.split(',')
+            hue, saturation, lightness, alpha = map(float, values)
             rgba = hsl_to_rgba(
                 int(hue), int(saturation), int(lightness), alpha
             )
