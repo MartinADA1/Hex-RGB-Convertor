@@ -1,5 +1,11 @@
 import pytest
-from ..app import (
+import os
+import sys
+
+# Add the parent directory of 'hex_rgb' to the sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from app import (
     hex_to_rgb, rgb_to_hex, rgba_to_hex, hex_to_rgba, rgb_to_hsl,
     hsl_to_rgb, rgb_to_rgba, rgba_to_rgb, hsl_to_hex, hsl_to_rgba
 )
