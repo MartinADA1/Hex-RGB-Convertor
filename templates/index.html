@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        label, select, input, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button.copy-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Color Converter</h1>
+        <form id="converter-form">
+            <label for="input-type">Input Type:</label>
+            <select id="input-type" name="input-type">
+                <option value="hex">HEX</option>
+                <option value="rgb">RGB</option>
+                <option value="rgba">RGBA</option>
+                <option value="hsl">HSL</option>
+            </select>
+
+            <label for="input-value">Input Value:</label>
+            <input type="text" id="input-value" name="input-value" placeholder="e.g. #ff0000">
+
+            <label for="output-type">Output Type:</label>
+            <select id="output-type" name="output-type">
+                <option value="rgb">RGB</option>
+                <option value="hex">HEX</option>
+                <option value="rgba">RGBA</option>
+                <option value="hsl">HSL</option>
+            </select>
+
+            <button type="submit">Convert</button>
+        </form>
+
+        <label for="output-value">Output Value:</label>
+        <input type="text" id="output-value" readonly>
+        <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+    </div>
+
+    <script>
+        document.getElementById('converter-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            convertValue();
+        });
+
+        function convertValue() {
+            const inputType = document.getElementById('input-type').value;
+            const inputValue = document.getElementById('input-value').value;
+            const outputType = document.getElementById('output-type').value;
+
+            fetch(`/convert?value=${inputValue}&type=${inputType}_to_${outputType}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Error: ' + data.error);
+                    } else {
+                        document.getElementById('output-value').value = data[outputType.toLowerCase()];
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function copyToClipboard() {
+            const outputValue = document.getElementById('output-value');
+            outputValue.select();
+            outputValue.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+            alert("Copied to clipboard: " + outputValue.value);
+        }
+    </script>
+</body>
+</html>
