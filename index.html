@@ -11,9 +11,13 @@
         }
         #result {
             margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
         }
         input, select, button {
             margin: 5px 0;
+            padding: 8px;
         }
     </style>
 </head>
@@ -48,11 +52,16 @@
             fetch(`/convert?value=${value}&type=${type}`)
                 .then(response => response.json())
                 .then(data => {
+                    let resultDiv = document.getElementById('result');
                     if (data.error) {
-                        document.getElementById('result').innerText = data.error;
+                        resultDiv.innerText = 'Error: ' + data.error;
                     } else {
-                        document.getElementById('result').innerText = JSON.stringify(data);
+                        let resultKey = Object.keys(data)[0];
+                        resultDiv.innerHTML = `<strong>${resultKey.toUpperCase()}:</strong> ${JSON.stringify(data[resultKey])}`;
                     }
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = 'An error occurred: ' + error.message;
                 });
         });
     </script>
