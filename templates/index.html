@@ -65,7 +65,7 @@
             const inputValue = document.getElementById('input-value').value;
             const outputType = document.getElementById('output-type').value;
 
-            fetch(`/convert?value=${inputValue}&type=${inputType}_to_${outputType}`)
+            fetch(`/convert?value=${encodeURIComponent(inputValue)}&type=${inputType}_to_${outputType}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
@@ -82,7 +82,6 @@
         function copyToClipboard() {
             const outputValue = document.getElementById('output-value');
             outputValue.select();
-            outputValue.setSelectionRange(0, 99999); /* For mobile devices */
             document.execCommand("copy");
             alert("Copied to clipboard: " + outputValue.value);
         }

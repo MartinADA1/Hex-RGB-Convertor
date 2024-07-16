@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import colorsys
 
-
 app = Flask(__name__)
 
 
@@ -59,12 +58,10 @@ def hsl_to_rgba(hue, saturation, lightness, alpha=1.0):
 def index():
     return render_template('index.html')
 
-
 @app.route('/convert', methods=['GET'])
 def convert():
     input_value = request.args.get('value')
     conversion_type = request.args.get('type')
-
 
     try:
         if conversion_type == 'hex_to_rgb':
@@ -109,7 +106,6 @@ def convert():
             return jsonify({'error': 'Invalid conversion type'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-
 
 if __name__ == '__main__':
     app.run(debug=True)
