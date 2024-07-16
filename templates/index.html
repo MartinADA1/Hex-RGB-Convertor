@@ -10,7 +10,6 @@
     <!-- Link to external CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -18,6 +17,7 @@
 </head>
 
 <body>
+
     <!-- Banner section -->
     <div class="banner">
         <h1>Colour Code Converter</h1>
@@ -98,7 +98,8 @@
                         } else if (outputType === 'rgba') {
                             color = `rgba(${outputValue})`;
                         } else if (outputType === 'hsl') {
-                            color = `hsl(${outputValue})`;
+                            // Format HSL value for CSS
+                            color = `hsl(${outputValue[0]}, ${outputValue[1]}%, ${outputValue[2]}%)`;
                         }
                         document.getElementById('color-display').style.backgroundColor = color;
                     }
@@ -131,6 +132,6 @@
             updateOutputOptions();
         });
     </script>
-    
+
 </body>
 </html>
