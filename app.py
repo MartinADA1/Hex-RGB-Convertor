@@ -30,7 +30,7 @@ def hsl_to_rgb(h, s, l):
     return int(r * 255), int(g * 255), int(b * 255)
 
 def rgb_to_rgba(r, g, b, a=1.0):
-    return (r, g, b, int(a * 256))
+    return (r, g, b, int(a * 255))
 
 def rgba_to_rgb(r, g, b, a):
     return (r, g, b)
