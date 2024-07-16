@@ -1,8 +1,5 @@
 import pytest
-import sys
-
-sys.path.append('../')
-from app import hex_to_rgb, rgb_to_hex, rgba_to_hex, hex_to_rgba, rgb_to_hsl, hsl_to_rgb, rgb_to_rgba, rgba_to_rgb, hsl_to_hex, hsl_to_rgba
+from ..app import hex_to_rgb, rgb_to_hex, rgba_to_hex, hex_to_rgba, rgb_to_hsl, hsl_to_rgb, rgb_to_rgba, rgba_to_rgb, hsl_to_hex, hsl_to_rgba
 
 def test_hex_to_rgb():
     assert hex_to_rgb('#ffffff') == (255, 255, 255)
