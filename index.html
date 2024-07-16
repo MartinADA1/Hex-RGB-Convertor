@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #converter-form {
+            margin: 20px 0;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        input, select, button {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Converter</h1>
+    <form id="converter-form">
+        <label for="value">Value:</label>
+        <input type="text" id="value" required>
+        <br>
+        <label for="type">Conversion Type:</label>
+        <select id="type" required>
+            <option value="hex_to_rgb">HEX to RGB</option>
+            <option value="rgb_to_hex">RGB to HEX</option>
+            <option value="hex_to_rgba">HEX to RGBA</option>
+            <option value="rgba_to_hex">RGBA to HEX</option>
+            <option value="rgb_to_hsl">RGB to HSL</option>
+            <option value="hsl_to_rgb">HSL to RGB</option>
+            <option value="rgba_to_rgb">RGBA to RGB</option>
+            <option value="rgb_to_rgba">RGB to RGBA</option>
+            <option value="hsl_to_hex">HSL to HEX</option>
+            <option value="hsl_to_rgba">HSL to RGBA</option>
+        </select>
+        <br>
+        <button type="submit">Convert</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('converter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let value = document.getElementById('value').value;
+            let type = document.getElementById('type').value;
+            fetch(`/convert?value=${value}&type=${type}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('result').innerText = data.error;
+                    } else {
+                        document.getElementById('result').innerText = JSON.stringify(data);
+                    }
+                });
+        });
+    </script>
+</body>
+</html>
