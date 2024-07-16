@@ -23,7 +23,9 @@ def rgba_to_hex(red, green, blue, alpha):
 # Function to convert hex to RGBA
 def hex_to_rgba(hex):
     hex = hex.lstrip('#')
-    return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4, 6)) if len(hex) == 8 else (*hex_to_rgb(hex), 255)
+    return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4, 6)) if len(hex) == 8 else (
+        *hex_to_rgb(hex), 255
+    )
 
 
 # Function to convert RGB to HSL
@@ -66,7 +68,9 @@ def hsl_to_rgba(hue, saturation, lightness, alpha=1.0):
 
 # Function to convert RGBA to HSL
 def rgba_to_hsl(red, green, blue, alpha):
-    hue, lightness, saturation = colorsys.rgb_to_hls(red / 255.0, green / 255.0, blue / 255.0)
+    hue, lightness, saturation = colorsys.rgb_to_hls(
+        red / 255.0, green / 255.0, blue / 255.0
+    )
     return int(hue * 360), int(saturation * 100), int(lightness * 100), alpha
 
 
@@ -126,7 +130,9 @@ def convert():
             return jsonify({'hex': hex_value})
         elif conversion_type == 'hsl_to_rgba':
             hue, saturation, lightness, alpha = map(float, input_value.split(','))
-            rgba = hsl_to_rgba(int(hue), int(saturation), int(lightness), alpha)
+            rgba = hsl_to_rgba(
+                int(hue), int(saturation), int(lightness), alpha
+            )
             return jsonify({'rgba': rgba})
         elif conversion_type == 'hex_to_hsl':
             red, green, blue = hex_to_rgb(input_value)
