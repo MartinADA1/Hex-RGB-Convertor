@@ -29,7 +29,9 @@ def rgb_to_hsl(red, green, blue):
 
 
 def hsl_to_rgb(hue, saturation, lightness):
-    hue, saturation, lightness = hue / 360.0, saturation / 100.0, lightness / 100.0
+    hue = hue / 360.0
+    saturation = saturation / 100.0
+    lightness = lightness / 100.0
     red, green, blue = colorsys.hls_to_rgb(hue, lightness, saturation)
     return int(red * 255), int(green * 255), int(blue * 255)
 
