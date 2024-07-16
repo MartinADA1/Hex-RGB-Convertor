@@ -55,8 +55,13 @@ def hsl_to_rgba(hue, saturation, lightness, alpha=1.0):
 
 # Function to convert RGBA to HSL
 def rgba_to_hsl(red, green, blue, alpha):
-    h, l, s = rgb_to_hsl(red, green, blue)
-    return h, s, l, alpha
+    hue, lightness, saturation = colorsys.rgb_to_hls(red / 255.0, green / 255.0, blue / 255.0)
+    return int(hue * 360), int(saturation * 100), int(lightness * 100), alpha
+
+# Function to convert hex to HSL
+def hex_to_hsl(hex):
+    red, green, blue = hex_to_rgb(hex)
+    return rgb_to_hsl(red, green, blue)
 
 # Route for the homepage
 @app.route('/')
@@ -122,5 +127,6 @@ def convert():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
+# Main entry point for the application
 if __name__ == '__main__':
     app.run(debug=True)
