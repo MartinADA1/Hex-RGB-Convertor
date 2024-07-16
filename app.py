@@ -13,7 +13,7 @@ def rgb_to_hex(r, g, b):
     return f'#{r:02x}{g:02x}{b:02x}'
 
 def rgba_to_hex(r, g, b, a):
-    return f'#{r,:02x}{g:02x}{b:02x}{int(a * 255):02x}'
+    return f'#{r:02x}{g:02x}{b:02x}{int(a * 255):02x}'
 
 def hex_to_rgba(hex):
     hex = hex.lstrip('#')
@@ -30,7 +30,7 @@ def hsl_to_rgb(h, s, l):
     return int(r * 255), int(g * 255), int(b * 255)
 
 def rgb_to_rgba(r, g, b, a=1.0):
-    return (r, g, b, int(a * 255))
+    return (r, g, b, round(a * 255))
 
 def rgba_to_rgb(r, g, b, a):
     return (r, g, b)
