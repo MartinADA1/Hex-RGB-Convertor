@@ -97,57 +97,58 @@ def convert():
 
     try:
         # Perform the appropriate conversion based on the conversion_type
-        if conversion_type == 'hex_to_rgb':
-            rgb = hex_to_rgb(input_value)
-            return jsonify({'rgb': rgb})
-        elif conversion_type == 'rgb_to_hex':
-            red, green, blue = map(int, input_value.split(','))
-            hex_value = rgb_to_hex(red, green, blue)
-            return jsonify({'hex': hex_value})
-        elif conversion_type == 'hex_to_rgba':
-            rgba = hex_to_rgba(input_value)
-            return jsonify({'rgba': rgba})
-        elif conversion_type == 'rgba_to_hex':
-            red, green, blue, alpha = map(float, input_value.split(','))
-            hex_value = rgba_to_hex(int(red), int(green), int(blue), alpha)
-            return jsonify({'hex': hex_value})
-        elif conversion_type == 'rgb_to_hsl':
-            red, green, blue = map(int, input_value.split(','))
-            hsl = rgb_to_hsl(red, green, blue)
-            return jsonify({'hsl': hsl})
-        elif conversion_type == 'hsl_to_rgb':
-            hue, saturation, lightness = map(int, input_value.split(','))
-            rgb = hsl_to_rgb(hue, saturation, lightness)
-            return jsonify({'rgb': rgb})
-        elif conversion_type == 'rgba_to_rgb':
-            red, green, blue, alpha = map(int, input_value.split(','))
-            rgb = rgba_to_rgb(red, green, blue, alpha)
-            return jsonify({'rgb': rgb})
-        elif conversion_type == 'rgb_to_rgba':
-            red, green, blue = map(int, input_value.split(','))
-            rgba = rgb_to_rgba(red, green, blue)
-            return jsonify({'rgba': rgba})
-        elif conversion_type == 'hsl_to_hex':
-            hue, saturation, lightness = map(int, input_value.split(','))
-            hex_value = hsl_to_hex(hue, saturation, lightness)
-            return jsonify({'hex': hex_value})
-        elif conversion_type == 'hsl_to_rgba':
-            values = input_value.split(',')
-            hue, saturation, lightness, alpha = map(float, values)
-            rgba = hsl_to_rgba(
-                int(hue), int(saturation), int(lightness), alpha
-            )
-            return jsonify({'rgba': rgba})
-        elif conversion_type == 'hex_to_hsl':
-            red, green, blue = hex_to_rgb(input_value)
-            hsl = rgb_to_hsl(red, green, blue)
-            return jsonify({'hsl': hsl})
-        elif conversion_type == 'rgba_to_hsl':
-            red, green, blue, alpha = map(int, input_value.split(','))
-            h, s, l, a = rgba_to_hsl(red, green, blue, alpha)
-            return jsonify({'hsl': (h, s, l), 'alpha': alpha})
-        else:
-            return jsonify({'error': 'Invalid conversion type'}), 400
+        match conversion_type:
+            case 'hex_to_rgb':
+                rgb = hex_to_rgb(input_value)
+                return jsonify({'rgb': rgb})
+            case 'rgb_to_hex':
+                red, green, blue = map(int, input_value.split(','))
+                hex_value = rgb_to_hex(red, green, blue)
+                return jsonify({'hex': hex_value})
+            case 'hex_to_rgba':
+                rgba = hex_to_rgba(input_value)
+                return jsonify({'rgba': rgba})
+            case 'rgba_to_hex':
+                red, green, blue, alpha = map(float, input_value.split(','))
+                hex_value = rgba_to_hex(int(red), int(green), int(blue), alpha)
+                return jsonify({'hex': hex_value})
+            case 'rgb_to_hsl':
+                red, green, blue = map(int, input_value.split(','))
+                hsl = rgb_to_hsl(red, green, blue)
+                return jsonify({'hsl': hsl})
+            case 'hsl_to_rgb':
+                hue, saturation, lightness = map(int, input_value.split(','))
+                rgb = hsl_to_rgb(hue, saturation, lightness)
+                return jsonify({'rgb': rgb})
+            case 'rgba_to_rgb':
+                red, green, blue, alpha = map(int, input_value.split(','))
+                rgb = rgba_to_rgb(red, green, blue, alpha)
+                return jsonify({'rgb': rgb})
+            case 'rgb_to_rgba':
+                red, green, blue = map(int, input_value.split(','))
+                rgba = rgb_to_rgba(red, green, blue)
+                return jsonify({'rgba': rgba})
+            case 'hsl_to_hex':
+                hue, saturation, lightness = map(int, input_value.split(','))
+                hex_value = hsl_to_hex(hue, saturation, lightness)
+                return jsonify({'hex': hex_value})
+            case 'hsl_to_rgba':
+                values = input_value.split(',')
+                hue, saturation, lightness, alpha = map(float, values)
+                rgba = hsl_to_rgba(
+                    int(hue), int(saturation), int(lightness), alpha
+                )
+                return jsonify({'rgba': rgba})
+            case 'hex_to_hsl':
+                red, green, blue = hex_to_rgb(input_value)
+                hsl = rgb_to_hsl(red, green, blue)
+                return jsonify({'hsl': hsl})
+            case 'rgba_to_hsl':
+                red, green, blue, alpha = map(int, input_value.split(','))
+                h, s, l, a = rgba_to_hsl(red, green, blue, alpha)
+                return jsonify({'hsl': (h, s, l), 'alpha': alpha})
+            case _:
+                return jsonify({'error': 'Invalid conversion type'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
