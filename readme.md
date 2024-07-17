@@ -154,4 +154,3 @@ push/pull request. To do this, we follow the following steps:
 
 This ensures all PRs have been checked before getting merged in.
 
-## Standards
